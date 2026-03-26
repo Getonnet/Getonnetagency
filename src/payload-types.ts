@@ -69,6 +69,10 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    pages: Page;
+    posts: Post;
+    categories: Category;
+    tags: Tag;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -78,6 +82,10 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    pages: PagesSelect<false> | PagesSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
+    categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -123,6 +131,38 @@ export interface UserAuthOperations {
  */
 export interface User {
   id: string;
+  /**
+   * Maps to WordPress display_name.
+   */
+  name: string;
+  /**
+   * Maps to WordPress user_firstname meta.
+   */
+  firstName?: string | null;
+  /**
+   * Maps to WordPress user_lastname meta.
+   */
+  lastName?: string | null;
+  /**
+   * Maps to WordPress description (biographical info).
+   */
+  bio?: string | null;
+  /**
+   * Maps to WordPress user_url.
+   */
+  url?: string | null;
+  /**
+   * Maps to WordPress user role.
+   */
+  role?: ('administrator' | 'editor' | 'author' | 'contributor' | 'subscriber') | null;
+  /**
+   * Original WordPress user ID — migration mapping key.
+   */
+  wpId?: number | null;
+  /**
+   * Original WordPress user_login.
+   */
+  wpLogin?: string | null;
   updatedAt: string;
   createdAt: string;
   email: string;
@@ -163,6 +203,219 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: string;
+  title: string;
+  /**
+   * URL-friendly identifier. Maps to WordPress post_name.
+   */
+  slug: string;
+  status: 'draft' | 'publish' | 'private' | 'pending' | 'trash';
+  /**
+   * Maps to WordPress post_date.
+   */
+  publishedAt?: string | null;
+  /**
+   * Maps to WordPress post_content.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Maps to WordPress post_excerpt.
+   */
+  excerpt?: string | null;
+  /**
+   * Maps to WordPress _thumbnail_id.
+   */
+  featuredImage?: (string | null) | Media;
+  /**
+   * Maps to WordPress post_parent.
+   */
+  parent?: (string | null) | Page;
+  /**
+   * Maps to WordPress menu_order.
+   */
+  menuOrder?: number | null;
+  /**
+   * WordPress page template (e.g. "default", "full-width").
+   */
+  template?: string | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    noIndex?: boolean | null;
+  };
+  /**
+   * Original WordPress post ID — migration mapping key.
+   */
+  wpId?: number | null;
+  /**
+   * Original WordPress GUID URL.
+   */
+  wpGuid?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: string;
+  /**
+   * Maps to WordPress post_title.
+   */
+  title: string;
+  /**
+   * URL-friendly identifier. Maps to WordPress post_name.
+   */
+  slug: string;
+  status: 'draft' | 'publish' | 'private' | 'pending' | 'trash';
+  /**
+   * Maps to WordPress post_date.
+   */
+  publishedAt?: string | null;
+  /**
+   * Maps to WordPress post_author.
+   */
+  author?: (string | null) | User;
+  /**
+   * Maps to WordPress post_content.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Maps to WordPress post_excerpt.
+   */
+  excerpt?: string | null;
+  /**
+   * Maps to WordPress _thumbnail_id.
+   */
+  featuredImage?: (string | null) | Media;
+  /**
+   * Maps to WordPress category terms.
+   */
+  categories?: (string | Category)[] | null;
+  /**
+   * Maps to WordPress tag terms.
+   */
+  tags?: (string | Tag)[] | null;
+  /**
+   * Maps to WordPress post format.
+   */
+  format?:
+    | ('standard' | 'aside' | 'chat' | 'gallery' | 'link' | 'image' | 'quote' | 'status' | 'video' | 'audio')
+    | null;
+  /**
+   * Maps to WordPress comment_status.
+   */
+  commentStatus?: ('open' | 'closed') | null;
+  /**
+   * Maps to WordPress ping_status.
+   */
+  pingStatus?: ('open' | 'closed') | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    noIndex?: boolean | null;
+  };
+  /**
+   * Original WordPress post ID — migration mapping key.
+   */
+  wpId?: number | null;
+  /**
+   * Original WordPress GUID URL.
+   */
+  wpGuid?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories".
+ */
+export interface Category {
+  id: string;
+  /**
+   * Maps to WordPress term name.
+   */
+  name: string;
+  /**
+   * Maps to WordPress term slug.
+   */
+  slug: string;
+  /**
+   * Maps to WordPress term description.
+   */
+  description?: string | null;
+  /**
+   * Maps to WordPress parent term ID.
+   */
+  parent?: (string | null) | Category;
+  /**
+   * Original WordPress term_id — migration mapping key.
+   */
+  wpId?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  /**
+   * Maps to WordPress term name.
+   */
+  name: string;
+  /**
+   * Maps to WordPress term slug.
+   */
+  slug: string;
+  /**
+   * Maps to WordPress term description.
+   */
+  description?: string | null;
+  /**
+   * Original WordPress term_id — migration mapping key.
+   */
+  wpId?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -192,6 +445,22 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: string | Media;
+      } | null)
+    | ({
+        relationTo: 'pages';
+        value: string | Page;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: string | Post;
+      } | null)
+    | ({
+        relationTo: 'categories';
+        value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: string | Tag;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -240,6 +509,14 @@ export interface PayloadMigration {
  * via the `definition` "users_select".
  */
 export interface UsersSelect<T extends boolean = true> {
+  name?: T;
+  firstName?: T;
+  lastName?: T;
+  bio?: T;
+  url?: T;
+  role?: T;
+  wpId?: T;
+  wpLogin?: T;
   updatedAt?: T;
   createdAt?: T;
   email?: T;
@@ -274,6 +551,90 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages_select".
+ */
+export interface PagesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  status?: T;
+  publishedAt?: T;
+  content?: T;
+  excerpt?: T;
+  featuredImage?: T;
+  parent?: T;
+  menuOrder?: T;
+  template?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        noIndex?: T;
+      };
+  wpId?: T;
+  wpGuid?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  status?: T;
+  publishedAt?: T;
+  author?: T;
+  content?: T;
+  excerpt?: T;
+  featuredImage?: T;
+  categories?: T;
+  tags?: T;
+  format?: T;
+  commentStatus?: T;
+  pingStatus?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        noIndex?: T;
+      };
+  wpId?: T;
+  wpGuid?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "categories_select".
+ */
+export interface CategoriesSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  parent?: T;
+  wpId?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  slug?: T;
+  description?: T;
+  wpId?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
