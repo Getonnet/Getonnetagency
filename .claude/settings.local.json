@@ -6,7 +6,22 @@
       "Bash(node:*)",
       "Bash(grep -r \"htmlToLexical\\\\|HTMLToLexical\\\\|convertHTML\\\\|htmlConverter\\\\|fromHTML\" node_modules/@payloadcms/richtext-lexical/dist/ --include=*.js -l)",
       "Bash(pnpm tsc:*)",
-      "Bash(pnpm:*)"
+      "Bash(pnpm:*)",
+      "WebFetch(domain:getonnet.agency)",
+      "Bash(ls \"src/app/\\(frontend\\)/\")",
+      "Bash(ls postcss.config*)",
+      "Bash(curl -s https://getonnet.agency)",
+      "Bash(python3:*)",
+      "Bash(grep -v '^\\\\s*$')",
+      "Bash(grep -oP '\\(?<=>\\)[^<]{5,200}\\(?=</[hdpabli]\\)' \"C:\\\\Users\\\\geton\\\\.claude\\\\projects\\\\C--Users-geton-Getonnetagency\\\\a790754e-1104-4f3f-9e5f-843c9db5d0d3\\\\tool-results\\\\bcszfwqu1.txt\")",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(grep -a [debug] .next/dev/logs/next-development.log)",
+      "Bash(find C:/Users/geton/Getonnetagency -name *.db -o -name *.sqlite)",
+      "Bash(cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node_modules/.bin/tsx /tmp/check-media.ts)",
+      "Bash(NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node_modules/.bin/tsx /tmp/check-media.ts)",
+      "Bash(NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node_modules/.bin/tsx src/scripts/check-media-wpids.ts)",
+      "Bash(NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node_modules/.bin/tsx -e \":*)",
+      "Bash(grep -v \"^\\\\s*$\")"
     ]
   }
 }

@@ -341,19 +341,27 @@ async function main() {
     const slug = cdata(item, 'wp:post_name')
     if (!slug) continue
 
-    const existing = await payload.find({ collection: 'cases', where: { slug: { equals: slug } }, limit: 1, overrideAccess: true })
-    if (existing.totalDocs > 0) {
-      log(`  skip  case "${title}" (exists)`)
-      continue
-    }
-
     const htmlContent = cdata(item, 'content:encoded')
-    const heroWpId = metaValue(item, 'kundecase_hero_image')
+    // Use _thumbnail_id (standard WP featured image) — kundecase_hero_image is empty in this export
+    const thumbWpId = metaValue(item, '_thumbnail_id')
+    const featuredImageId = thumbWpId && mediaIdMap.has(thumbWpId) ? (mediaIdMap.get(thumbWpId) as any) : undefined
 
     // Categories stored as array of text (the collection uses type:'array')
     const caseCatSlugs = categoriesOnItem(item)
       .filter((c) => c.domain === 'kundcase-kategori')
       .map((c) => ({ category: c.name }))
+
+    const existing = await payload.find({ collection: 'cases', where: { slug: { equals: slug } }, limit: 1, overrideAccess: true })
+    if (existing.totalDocs > 0) {
+      const doc = existing.docs[0]
+      if (!doc.featuredImage && featuredImageId) {
+        await payload.update({ collection: 'cases', id: doc.id as string, data: { featuredImage: featuredImageId }, overrideAccess: true })
+        log(`  updated case "${title}" featuredImage`)
+      } else {
+        log(`  skip  case "${title}" (exists)`)
+      }
+      continue
+    }
 
     await payload.create({
       collection: 'cases',
@@ -361,7 +369,7 @@ async function main() {
         title,
         slug,
         content: htmlContent ? htmlToLexical(htmlContent) : undefined,
-        featuredImage: heroWpId && mediaIdMap.has(heroWpId) ? (mediaIdMap.get(heroWpId) as any) : undefined,
+        featuredImage: featuredImageId,
         categories: caseCatSlugs.length ? caseCatSlugs : undefined,
       },
       overrideAccess: true,
