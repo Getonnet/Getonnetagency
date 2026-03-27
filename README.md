@@ -161,9 +161,3 @@ pnpm typecheck        # Run TypeScript type check
 pnpm generate:types   # Regenerate Payload types after collection changes
 pnpm migrate          # Run WordPress → Payload migration script
 ```
-
----
-
-## Questions?
-
-Contact **Aldrin** at `aldrin@getonnet.agency`
