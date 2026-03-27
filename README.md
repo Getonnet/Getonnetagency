@@ -1,67 +1,169 @@
-# Payload Blank Template
+# Getonnetagency — Payload CMS + Next.js
 
-This template comes configured with the bare minimum to get started on anything you need.
+This project is the new **getonnet.agency** website, migrated from WordPress to **Payload CMS** with a **Next.js** frontend.
 
-## Quick start
+---
 
-This template can be deployed directly from our Cloud hosting and it will setup MongoDB and cloud S3 object storage for media.
+## Tech Stack
 
-## Quick Start - local setup
+- **CMS:** Payload CMS v3
+- **Frontend:** Next.js (App Router)
+- **Database:** MongoDB Atlas
+- **Package manager:** pnpm
+- **Language:** TypeScript
 
-To spin up this template locally, follow these steps:
+---
 
-### Clone
+## Branch Strategy
 
-After you click the `Deploy` button above, you'll want to have standalone copy of this repo on your machine. If you've already cloned this repo, skip to [Development](#development).
+```
+main                  → stable, production-ready only
+└── dev               → shared development branch (merge your work here)
+    └── feature/xxx   → your individual feature branches
+```
 
-### Development
+**Rules:**
+- Never commit directly to `main` or `dev`
+- Always branch off `dev` for new features
+- Open a Pull Request into `dev` when your feature is ready
+- `main` is only updated when we're ready to deploy to production
 
-1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `MONGODB_URL` from your Cloud project to your `.env` if you want to use S3 storage and the MongoDB database that was created for you.
+---
 
-3. `pnpm install && pnpm dev` to install dependencies and start the dev server
-4. open `http://localhost:3000` to open the app in your browser
+## Getting Started
 
-That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
+### 1. Clone the repo
 
-#### Docker (Optional)
+```bash
+git clone https://github.com/Getonnet/Getonnetagency.git
+cd Getonnetagency
+```
 
-If you prefer to use Docker for local development instead of a local MongoDB instance, the provided docker-compose.yml file can be used.
+### 2. Switch to dev branch
 
-To do so, follow these steps:
+```bash
+git checkout dev
+```
 
-- Modify the `MONGODB_URL` in your `.env` file to `mongodb://127.0.0.1/<dbname>`
-- Modify the `docker-compose.yml` file's `MONGODB_URL` to match the above `<dbname>`
-- Run `docker-compose up` to start the database, optionally pass `-d` to run in the background.
+### 3. Install dependencies
 
-## How it works
+```bash
+pnpm install
+```
 
-The Payload config is tailored specifically to the needs of most websites. It is pre-configured in the following ways:
+### 4. Set up environment variables
 
-### Collections
+Copy the example env file:
 
-See the [Collections](https://payloadcms.com/docs/configuration/collections) docs for details on how to extend this functionality.
+```bash
+cp .env.example .env
+```
 
-- #### Users (Authentication)
+Then open `.env` and fill in the values:
 
-  Users are auth-enabled collections that have access to the admin panel.
+```env
+DATABASE_URL=mongodb+srv://...   # Ask Aldrin for the MongoDB connection string
+PAYLOAD_SECRET=...               # Ask Aldrin for the secret key
+```
 
-  For additional help, see the official [Auth Example](https://github.com/payloadcms/payload/tree/main/examples/auth) or the [Authentication](https://payloadcms.com/docs/authentication/overview#authentication-overview) docs.
+> ⚠️ Never commit your `.env` file. It's already in `.gitignore`.
 
-- #### Media
+### 5. Start the dev server
 
-  This is the uploads enabled collection. It features pre-configured sizes, focal point and manual resizing to help you manage your pictures.
+```bash
+pnpm dev
+```
 
-### Docker
+The site runs at: `http://localhost:3000`
+Payload admin runs at: `http://localhost:3000/admin`
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this template locally. To do so, follow these steps:
+---
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+## Collections (Payload CMS)
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+| Collection | Description |
+|---|---|
+| `users` | Admin users |
+| `media` | Images and files |
+| `pages` | Static pages |
+| `posts` | Blog posts |
+| `categories` | Post categories |
+| `tags` | Post tags |
+| `cases` | Customer case studies (kundecaser) |
+| `testimonials` | Client testimonials |
+| `team` | Team members |
 
-## Questions
+---
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+## WordPress Migration
+
+All content from the original WordPress site (`getonnet.agency`) has already been migrated into Payload CMS. If you ever need to re-run the migration (e.g. after a fresh database):
+
+### 1. Make sure your `.env` is set up correctly (see above)
+
+### 2. Place the WordPress XML export in the scripts folder
+
+```bash
+# The file should already be at:
+src/scripts/getonnet_WordPress_2026-03-27.xml
+```
+
+### 3. Run the migration script
+
+```bash
+pnpm migrate
+```
+
+This will import in order:
+1. Categories
+2. Tags
+3. Media (downloads images from the original WordPress site)
+4. Posts
+5. Pages
+6. Cases
+7. Testimonials
+8. Team members
+
+> ⚠️ Media files are stored locally in `/media` and are excluded from Git (see `.gitignore`). For production, media should be hosted on a cloud storage service (e.g. Cloudinary or AWS S3).
+
+---
+
+## Working on a Feature
+
+```bash
+# Make sure you're up to date with dev
+git checkout dev
+git pull origin dev
+
+# Create your feature branch
+git checkout -b feature/your-feature-name
+
+# Do your work, then commit
+git add .
+git commit -m "Description of what you did"
+
+# Push your branch
+git push origin feature/your-feature-name
+
+# Open a Pull Request into dev on GitHub
+```
+
+---
+
+## Available Commands
+
+```bash
+pnpm dev              # Start dev server
+pnpm devsafe          # Clean .next then start dev
+pnpm build            # Build for production
+pnpm lint             # Run ESLint
+pnpm typecheck        # Run TypeScript type check
+pnpm generate:types   # Regenerate Payload types after collection changes
+pnpm migrate          # Run WordPress → Payload migration script
+```
+
+---
+
+## Questions?
+
+Contact **Aldrin** at `aldrin@getonnet.agency`
