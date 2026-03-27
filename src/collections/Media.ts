@@ -11,6 +11,16 @@ export const Media: CollectionConfig = {
       type: 'text',
       required: true,
     },
+    {
+      name: 'wpId',
+      type: 'number',
+      label: 'WordPress Attachment ID',
+      unique: true,
+      admin: {
+        description: 'Original WordPress attachment post ID — migration mapping key.',
+        readOnly: true,
+      },
+    },
   ],
   upload: true,
 }

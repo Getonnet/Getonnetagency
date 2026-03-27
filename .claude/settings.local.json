@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p src/scripts)",
+      "Bash(cp \"/c/Users/geton/Downloads/getonnet.WordPress.2026-03-27.xml\" \"src/scripts/getonnet_WordPress_2026-03-27.xml\")",
+      "Bash(node:*)",
+      "Bash(grep -r \"htmlToLexical\\\\|HTMLToLexical\\\\|convertHTML\\\\|htmlConverter\\\\|fromHTML\" node_modules/@payloadcms/richtext-lexical/dist/ --include=*.js -l)",
+      "Bash(pnpm tsc:*)",
+      "Bash(pnpm:*)"
+    ]
+  }
+}
