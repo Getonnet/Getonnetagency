@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 }
 
 const TEAM = [
-  { src: '/images/team/Gjermundx2.png', alt: 'Team member 1' },
-  { src: '/images/team/Torsteinx2.png', alt: 'Team member 2' },
-  { src: '/images/team/Andreax2.png', alt: 'Team member 3' },
-  { src: '/images/team/Torx2.png', alt: 'Team member 4' },
-  { src: '/images/team/Stianx2.png', alt: 'Team member 5' },
-  { src: '/images/team/Simonx2.png', alt: 'Team member 6' },
+  { src: '/api/media/file/Gjermundx2-1.png', alt: 'Gjermund' },
+  { src: '/api/media/file/Torsteinx2-1.png', alt: 'Torstein' },
+  { src: '/api/media/file/Andreax2-1.png', alt: 'Andrea' },
+  { src: '/api/media/file/Torx2-1.png', alt: 'Tor' },
+  { src: '/api/media/file/Stianx2-1.png', alt: 'Stian' },
+  { src: '/api/media/file/Simonx2-1.png', alt: 'Simon' },
 ]
 
 export default function ContactPage() {
