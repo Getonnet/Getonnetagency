@@ -14,6 +14,7 @@ import { Tags } from './collections/Tags'
 import { Cases } from './collections/Cases'
 import { Testimonials } from './collections/Testimonials'
 import { Team } from './collections/Team'
+import { ContactSubmissions } from './collections/ContactSubmissions'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -25,7 +26,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Pages, Posts, Categories, Tags, Cases, Testimonials, Team],
+  collections: [Users, Media, Pages, Posts, Categories, Tags, Cases, Testimonials, Team, ContactSubmissions],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
