@@ -47,13 +47,6 @@ function catPalette(name: string) {
 
 // ─── static data ──────────────────────────────────────────────────────────────
 
-const NAV_LINKS = [
-  { label: 'Projects', href: '#cases' },
-  { label: 'Services', href: '#services' },
-  { label: 'About us', href: '#about' },
-  { label: 'Support', href: '#contact' },
-]
-
 const SERVICES = [
   {
     icon: '💻',
@@ -81,7 +74,7 @@ const SERVICES = [
   },
 ]
 
-const CLIENTS = ['Newsec', 'Mill', 'Biil.no', 'Pretakst', 'tAPMEHOME', 'SafeApp', 'Sveagruppen', 'BDO']
+const CLIENTS = ['Yokis', 'ABC', 'Norsk Tipping', 'Scholmed', 'Mill', 'Nel', 'DCTY', 'Getonnet', 'E24']
 
 const TECH = [
   { name: 'Next.js', cat: 'React framework' },
@@ -123,65 +116,11 @@ export default async function HomePage() {
   return (
     <div style={{ backgroundColor: '#E3E0DD', color: '#161616' }}>
 
-      {/* ── Nav ───────────────────────────────────────────────────────────── */}
-      <header
-        className="sticky top-0 z-50"
-        style={{
-          backgroundColor: 'rgba(227,224,221,0.92)',
-          borderBottom: '1px solid rgba(0,0,0,0.08)',
-          backdropFilter: 'blur(12px)',
-          WebkitBackdropFilter: 'blur(12px)',
-        }}
-      >
-        <div
-          className="mx-auto flex items-center justify-between h-16 px-6"
-          style={{ maxWidth: 1200 }}
-        >
-          {/* Logo */}
-          <Link
-            href="/"
-            className="font-bold text-xl tracking-tight"
-            style={{ fontFamily: 'var(--font-bricolage)', color: '#161616' }}
-          >
-            GetOnNet
-          </Link>
-
-          {/* Centre links */}
-          <nav className="hidden md:flex items-center gap-7">
-            {NAV_LINKS.map((l) => (
-              <Link
-                key={l.label}
-                href={l.href}
-                className="text-sm font-medium transition-opacity hover:opacity-60"
-                style={{ color: '#161616' }}
-              >
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* CTA buttons */}
-          <div className="flex items-center gap-2.5">
-            <Link
-              href="#contact"
-              className="hidden sm:inline-flex px-4 py-2 rounded-full text-sm font-semibold border-2 border-black/80 hover:bg-black hover:text-white transition-colors"
-              style={{ color: '#161616' }}
-            >
-              Get a quote ✨
-            </Link>
-            <Link
-              href="#contact"
-              className="inline-flex px-4 py-2 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
-              style={{ backgroundColor: '#fb6962' }}
-            >
-              Let&apos;s talk ☕
-            </Link>
-          </div>
-        </div>
-      </header>
-
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '80px 24px 72px' }}>
+      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 72px', width: '100%' }}
+          className="pt-20"
+        >
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
           {/* Left */}
@@ -239,7 +178,7 @@ export default async function HomePage() {
                 return (
                   <div
                     key={idx}
-                    className={`relative rounded-2xl overflow-hidden shadow-sm ${idx === 0 ? 'flex-[2]' : 'flex-1'}`}
+                    className="relative rounded-2xl overflow-hidden shadow-sm flex-1"
                     style={{ backgroundColor: '#d4d1ce' }}
                   >
                     {img ? (
@@ -268,7 +207,7 @@ export default async function HomePage() {
                 return (
                   <div
                     key={idx}
-                    className={`relative rounded-2xl overflow-hidden shadow-sm ${idx === 4 ? 'flex-[2]' : 'flex-1'}`}
+                    className="relative rounded-2xl overflow-hidden shadow-sm flex-1"
                     style={{ backgroundColor: '#d4d1ce' }}
                   >
                     {img ? (
@@ -290,23 +229,29 @@ export default async function HomePage() {
             </div>
           </div>
         </div>
+        </div>
       </section>
 
       {/* ── Client logos ──────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#161616', padding: '28px 0' }}>
+      <section style={{ backgroundColor: '#161616', padding: '32px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <p
-            className="text-center text-xs font-semibold uppercase tracking-widest mb-5"
-            style={{ color: '#555' }}
+            className="text-center text-xs font-semibold uppercase tracking-widest mb-6"
+            style={{ color: '#444' }}
           >
             Trusted by leading companies
           </p>
-          <div className="flex flex-wrap justify-center items-center gap-x-10 gap-y-3">
+          <div className="flex flex-wrap justify-center items-center gap-3">
             {CLIENTS.map((name) => (
               <span
                 key={name}
-                className="text-sm font-semibold"
-                style={{ color: '#4a4a4a', letterSpacing: '0.02em' }}
+                className="px-4 py-1.5 rounded-full text-sm font-semibold border"
+                style={{
+                  color: '#999',
+                  borderColor: 'rgba(255,255,255,0.1)',
+                  backgroundColor: 'rgba(255,255,255,0.04)',
+                  letterSpacing: '0.01em',
+                }}
               >
                 {name}
               </span>
@@ -417,7 +362,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Services ──────────────────────────────────────────────────────── */}
-      <section id="services" style={{ backgroundColor: '#161616', padding: '96px 0' }}>
+      <section id="services" style={{ backgroundColor: '#0d0d0d', padding: '96px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
           <div className="mb-12">
             <p
@@ -434,12 +379,12 @@ export default async function HomePage() {
             </h2>
           </div>
 
-          {/* Cards — horizontal scroll on mobile, 4-col on desktop */}
-          <div className="services-track lg:grid lg:grid-cols-4 lg:gap-5">
+          {/* Cards — 2-col on mobile, 4-col on desktop */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
             {SERVICES.map((s) => (
               <div
                 key={s.title}
-                className="flex-shrink-0 w-72 lg:w-auto rounded-2xl p-6 flex flex-col gap-4 border hover:scale-[1.02] transition-transform cursor-default"
+                className="rounded-2xl p-6 flex flex-col gap-4 border hover:scale-[1.02] transition-transform cursor-default"
                 style={{
                   backgroundColor: s.bg,
                   borderColor: 'rgba(255,255,255,0.07)',
@@ -461,20 +406,6 @@ export default async function HomePage() {
             ))}
           </div>
 
-          {/* Carousel dots (decorative) */}
-          <div className="flex justify-center gap-1.5 mt-8 lg:hidden">
-            {SERVICES.map((_, i) => (
-              <div
-                key={i}
-                className="rounded-full transition-all"
-                style={{
-                  width: i === 0 ? 20 : 6,
-                  height: 6,
-                  backgroundColor: i === 0 ? '#fb6962' : '#444',
-                }}
-              />
-            ))}
-          </div>
         </div>
       </section>
 
@@ -760,161 +691,6 @@ export default async function HomePage() {
           <ContactForm />
         </div>
       </section>
-
-      {/* ── Footer ────────────────────────────────────────────────────────── */}
-      <footer style={{ backgroundColor: '#111', padding: '64px 0 32px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 mb-14">
-
-            {/* Col 1 — brand + contact */}
-            <div>
-              <p
-                className="text-xl font-bold text-white mb-2"
-                style={{ fontFamily: 'var(--font-bricolage)' }}
-              >
-                GetOnNet
-              </p>
-              <p className="text-sm leading-relaxed mb-6" style={{ color: '#555' }}>
-                Full-service digital agency working at the intersection of people and digital
-                technologies.
-              </p>
-              <div className="space-y-2 mb-6">
-                <a
-                  href="tel:+4735901500"
-                  className="block text-sm transition-colors hover:text-white"
-                  style={{ color: '#666' }}
-                >
-                  (+47) 35 90 15 00
-                </a>
-                <a
-                  href="mailto:hello@getonnet.agency"
-                  className="block text-sm transition-colors hover:text-white"
-                  style={{ color: '#666' }}
-                >
-                  hello@getonnet.agency
-                </a>
-              </div>
-              <div className="flex gap-4">
-                {[
-                  { label: 'Instagram', href: 'https://www.instagram.com/getonnet/' },
-                  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/getonnet/' },
-                  { label: 'Facebook', href: 'https://www.facebook.com/getonnetab' },
-                ].map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs font-medium transition-colors hover:text-white"
-                    style={{ color: '#555' }}
-                  >
-                    {s.label}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Col 2 — Services */}
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-widest mb-4"
-                style={{ color: '#444' }}
-              >
-                Services
-              </p>
-              <ul className="space-y-2.5">
-                {[
-                  'Web development',
-                  'AI',
-                  'App development',
-                  'Digital advertising',
-                  'UX/UI Design',
-                  'Online stores',
-                  'Branding',
-                ].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href="#services"
-                      className="text-sm transition-colors hover:text-white"
-                      style={{ color: '#666' }}
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Col 3 — Content */}
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-widest mb-4"
-                style={{ color: '#444' }}
-              >
-                Content
-              </p>
-              <ul className="space-y-2.5">
-                {['Customer cases', 'Articles'].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href="#"
-                      className="text-sm transition-colors hover:text-white"
-                      style={{ color: '#666' }}
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Col 4 — GetOnNet */}
-            <div>
-              <p
-                className="text-xs font-semibold uppercase tracking-widest mb-4"
-                style={{ color: '#444' }}
-              >
-                GetOnNet
-              </p>
-              <ul className="space-y-2.5">
-                {['About us', 'Contact', 'Support', 'Privacy policy'].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href="#"
-                      className="text-sm transition-colors hover:text-white"
-                      style={{ color: '#666' }}
-                    >
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Bottom bar */}
-          <div
-            className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
-            style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
-          >
-            <p className="text-xs" style={{ color: '#3a3a3a' }}>
-              © 2026 GetOnNet AS — Org nr 998 580 706
-            </p>
-            <div className="flex gap-5">
-              {['Privacy policy', 'Terms'].map((item) => (
-                <Link
-                  key={item}
-                  href="#"
-                  className="text-xs transition-colors hover:text-white"
-                  style={{ color: '#3a3a3a' }}
-                >
-                  {item}
-                </Link>
-              ))}
-            </div>
-          </div>
-        </div>
-      </footer>
 
     </div>
   )

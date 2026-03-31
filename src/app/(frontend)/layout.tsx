@@ -1,6 +1,8 @@
 import { Bricolage_Grotesque, Figtree } from 'next/font/google'
 import React from 'react'
 
+import Footer from './components/Footer'
+import Header from './components/Header'
 import './globals.css'
 import './styles.css'
 
@@ -29,7 +31,9 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
   return (
     <html lang="nb" className={`${bricolage.variable} ${figtree.variable}`}>
       <body>
+        <Header />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   )
