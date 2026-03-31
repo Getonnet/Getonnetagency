@@ -16,7 +16,7 @@
 
 /* ── Text block ───────────────────────────────────────── */
 .hero__text {
-  max-width: 760px;
+  max-width: 75%;
   margin-bottom: 56px;
 
   @media (max-width: 768px) {
