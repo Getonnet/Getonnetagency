@@ -1,0 +1,54 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: var(--font-figtree, 'Figtree', system-ui, sans-serif);
+}
+
+:root {
+  /* ── Core palette ───────────────────────────────────── */
+  --color-primary: #eb5757;
+  --color-heading: #232323;
+  --color-text: #232323;
+  --color-bg: #f1f0ee;
+
+  /* ── Dark mode ──────────────────────────────────────── */
+  --color-dark-heading: #fff4f4;
+  --color-dark-text: #fff4f4;
+
+  /* ── Surfaces ───────────────────────────────────────── */
+  --color-bg-light: #e3e0dd;
+
+  /* ── Buttons ────────────────────────────────────────── */
+  --color-btn: #eb5757;
+  --color-btn-text: #ffffff;
+  --color-btn-hover: #e73636;
+  --color-btn-hover-text: #ffffff;
+
+  /* ── Accent ─────────────────────────────────────────── */
+  --color-dark-blue: #2f4858;
+
+  /* ── Extended palette ───────────────────────────────── */
+  --color-palette-1: #b6e761;
+  --color-palette-2: #ffdd00;
+  --color-palette-3: #ff7d00;
+  --color-palette-4: #ff2929;
+  --color-palette-5: #ff4eb5;
+  --color-palette-6: #b672ff;
+  --color-palette-7: #299dff;
+  --color-palette-8: #44ddc6;
+
+  /* ── Service colors ─────────────────────────────────── */
+  --color-service-web-design: #eb5757;
+  --color-service-web-utvikling: #ff8800;
+  --color-service-branding: #ffe138;
+  --color-service-annonsering: #9add09;
+  --color-service-nettbutikk: #23bff1;
+  --color-service-ai: #be46ff;
+  --color-service-apputvikling: #4a4aff;
+  --color-service-new: #58b771;
+}

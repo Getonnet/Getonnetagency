@@ -1,5 +1,7 @@
-import React from 'react'
 import { Bricolage_Grotesque, Figtree } from 'next/font/google'
+import React from 'react'
+
+import './globals.css'
 import './styles.css'
 
 const bricolage = Bricolage_Grotesque({
@@ -25,7 +27,7 @@ export const metadata = {
 export default async function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
   return (
-    <html lang="en" className={`${bricolage.variable} ${figtree.variable}`}>
+    <html lang="nb" className={`${bricolage.variable} ${figtree.variable}`}>
       <body>
         <main>{children}</main>
       </body>

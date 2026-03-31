@@ -76,6 +76,8 @@ export interface Config {
     cases: Case;
     testimonials: Testimonial;
     team: Team;
+    'contact-submissions': ContactSubmission;
+    'support-submissions': SupportSubmission;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -92,6 +94,8 @@ export interface Config {
     cases: CasesSelect<false> | CasesSelect<true>;
     testimonials: TestimonialsSelect<false> | TestimonialsSelect<true>;
     team: TeamSelect<false> | TeamSelect<true>;
+    'contact-submissions': ContactSubmissionsSelect<false> | ContactSubmissionsSelect<true>;
+    'support-submissions': SupportSubmissionsSelect<false> | SupportSubmissionsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -506,6 +510,55 @@ export interface Team {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions".
+ */
+export interface ContactSubmission {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string | null;
+  company?: string | null;
+  services?:
+    | (
+        | 'nettside'
+        | 'webutvikling'
+        | 'apputvikling'
+        | 'ai'
+        | 'nettbutikk'
+        | 'annonsering'
+        | 'branding'
+        | 'ux-ui-design'
+        | 'annen'
+      )[]
+    | null;
+  message?: string | null;
+  status?: ('new' | 'in-progress' | 'completed') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "support-submissions".
+ */
+export interface SupportSubmission {
+  id: string;
+  category: 'nettside' | 'epost' | 'mobilapplikasjon' | 'salg' | 'annonsering' | 'annet';
+  firstName: string;
+  lastName: string;
+  company?: string | null;
+  severity: 'low' | 'medium' | 'high';
+  website?: string | null;
+  email: string;
+  phone?: string | null;
+  ticketName: string;
+  description: string;
+  acceptedTerms?: boolean | null;
+  status?: ('new' | 'in-progress' | 'resolved') | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -563,6 +616,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'team';
         value: string | Team;
+      } | null)
+    | ({
+        relationTo: 'contact-submissions';
+        value: string | ContactSubmission;
+      } | null)
+    | ({
+        relationTo: 'support-submissions';
+        value: string | SupportSubmission;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -779,6 +840,41 @@ export interface TeamSelect<T extends boolean = true> {
   role?: T;
   bio?: T;
   photo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-submissions_select".
+ */
+export interface ContactSubmissionsSelect<T extends boolean = true> {
+  name?: T;
+  email?: T;
+  phone?: T;
+  company?: T;
+  services?: T;
+  message?: T;
+  status?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "support-submissions_select".
+ */
+export interface SupportSubmissionsSelect<T extends boolean = true> {
+  category?: T;
+  firstName?: T;
+  lastName?: T;
+  company?: T;
+  severity?: T;
+  website?: T;
+  email?: T;
+  phone?: T;
+  ticketName?: T;
+  description?: T;
+  acceptedTerms?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
