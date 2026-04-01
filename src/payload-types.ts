@@ -439,21 +439,127 @@ export interface Case {
    * URL-friendly identifier.
    */
   slug: string;
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
+  /**
+   * Short summary shown in listings.
+   */
+  excerpt?: string | null;
+  layout?:
+    | (
+        | {
+            content: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'richText';
+          }
+        | {
+            image: string | Media;
+            /**
+             * Optional caption shown below the image.
+             */
+            caption?: string | null;
+            fullWidth?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'image';
+          }
+        | {
+            quote: string;
+            author?: string | null;
+            role?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'quote';
+          }
+        | {
+            logo?: (string | null) | Media;
+            heading?: string | null;
+            body?: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            } | null;
+            categories?:
+              | {
+                  category: string;
+                  id?: string | null;
+                }[]
+              | null;
+            /**
+             * Any valid CSS color value, e.g. #f5f5f5 or rgba(0,0,0,0.05).
+             */
+            backgroundColor?: string | null;
+            /**
+             * Inner padding applied when a background color is set.
+             */
+            padding?: number | null;
+            borderRadius?: number | null;
+            /**
+             * Width of the image column as a percentage (20–80). Default: 50.
+             */
+            imageWidth?: number | null;
+            imagePosition?: ('right' | 'left') | null;
+            images?:
+              | {
+                  image: string | Media;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'twoColumn';
+          }
+        | {
+            content: string;
+            name: string;
+            position?: string | null;
+            logo?: (string | null) | Media;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'testimonial';
+          }
+        | {
+            heading?: string | null;
+            content?: string | null;
+            counters?:
+              | {
+                  /**
+                   * e.g. 120% or 3x
+                   */
+                  number: string;
+                  title: string;
+                  id?: string | null;
+                }[]
+              | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'conclusion';
+          }
+      )[]
+    | null;
   featuredImage?: (string | null) | Media;
   categories?:
     | {
@@ -807,7 +913,87 @@ export interface TagsSelect<T extends boolean = true> {
 export interface CasesSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
-  content?: T;
+  excerpt?: T;
+  layout?:
+    | T
+    | {
+        richText?:
+          | T
+          | {
+              content?: T;
+              id?: T;
+              blockName?: T;
+            };
+        image?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              fullWidth?: T;
+              id?: T;
+              blockName?: T;
+            };
+        quote?:
+          | T
+          | {
+              quote?: T;
+              author?: T;
+              role?: T;
+              id?: T;
+              blockName?: T;
+            };
+        twoColumn?:
+          | T
+          | {
+              logo?: T;
+              heading?: T;
+              body?: T;
+              categories?:
+                | T
+                | {
+                    category?: T;
+                    id?: T;
+                  };
+              backgroundColor?: T;
+              padding?: T;
+              borderRadius?: T;
+              imageWidth?: T;
+              imagePosition?: T;
+              images?:
+                | T
+                | {
+                    image?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+        testimonial?:
+          | T
+          | {
+              content?: T;
+              name?: T;
+              position?: T;
+              logo?: T;
+              id?: T;
+              blockName?: T;
+            };
+        conclusion?:
+          | T
+          | {
+              heading?: T;
+              content?: T;
+              counters?:
+                | T
+                | {
+                    number?: T;
+                    title?: T;
+                    id?: T;
+                  };
+              id?: T;
+              blockName?: T;
+            };
+      };
   featuredImage?: T;
   categories?:
     | T

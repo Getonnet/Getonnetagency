@@ -1,5 +1,12 @@
 import type { CollectionConfig } from 'payload'
 
+import { RichTextBlock } from '@/blocks/RichTextBlock'
+import { ImageBlock } from '@/blocks/ImageBlock'
+import { QuoteBlock } from '@/blocks/QuoteBlock'
+import { TwoColumnBlock } from '@/blocks/TwoColumnBlock'
+import { TestimonialBlock } from '@/blocks/TestimonialBlock'
+import { ConclusionBlock } from '@/blocks/ConclusionBlock'
+
 export const Cases: CollectionConfig = {
   slug: 'cases',
   admin: {
@@ -21,8 +28,15 @@ export const Cases: CollectionConfig = {
       admin: { description: 'URL-friendly identifier.' },
     },
     {
-      name: 'content',
-      type: 'richText',
+      name: 'excerpt',
+      type: 'textarea',
+      admin: { description: 'Short summary shown in listings.' },
+    },
+    {
+      name: 'layout',
+      type: 'blocks',
+      label: 'Page Layout',
+      blocks: [RichTextBlock, ImageBlock, QuoteBlock, TwoColumnBlock, TestimonialBlock, ConclusionBlock],
     },
     {
       name: 'featuredImage',
