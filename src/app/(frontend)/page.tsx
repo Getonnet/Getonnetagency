@@ -87,16 +87,6 @@ const TECH = [
   { name: 'Payload CMS', cat: 'Headless CMS' },
 ]
 
-// gradient fallbacks for hero mosaic tiles
-const TILE_GRADIENTS = [
-  'from-blue-300 to-blue-500',
-  'from-violet-300 to-violet-500',
-  'from-amber-300 to-orange-400',
-  'from-emerald-300 to-teal-500',
-  'from-rose-300 to-pink-500',
-  'from-cyan-300 to-sky-500',
-]
-
 // ─── page ─────────────────────────────────────────────────────────────────────
 
 export default async function HomePage() {
@@ -110,260 +100,499 @@ export default async function HomePage() {
   const cases = casesRes.docs as Case[]
   const testimonials = testimonialsRes.docs as Testimonial[]
 
-  // Pad hero tiles to always have 6
-  const heroTiles = Array.from({ length: 6 }, (_, i) => cases[i] ?? null)
-
   return (
     <div style={{ backgroundColor: '#E3E0DD', color: '#161616' }}>
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section style={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px 72px', width: '100%' }}
-          className="pt-20"
+      <style dangerouslySetInnerHTML={{ __html: `
+        @keyframes scrollUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+        @keyframes scrollDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+        .col-up-1 { animation: scrollUp 25s linear infinite; will-change: transform; }
+        .col-down-2 { animation: scrollDown 35s linear infinite; will-change: transform; }
+        .col-up-3 { animation: scrollUp 40s linear infinite; will-change: transform; }
+      `}} />
+      <section
+        style={{
+          backgroundColor: '#F1F0EE',
+          position: 'relative',
+          overflow: 'hidden',
+          minHeight: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        {/* SVG background pattern — very subtle */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.08,
+            backgroundImage: 'url(/media/frame-22000008559.svg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
+            pointerEvents: 'none',
+          }}
+        />
+
+        {/* Left content */}
+        <div
+          style={{
+            position: 'relative',
+            zIndex: 10,
+            width: '45%',
+            paddingTop: 140,
+            paddingBottom: 80,
+            paddingLeft: 'max(24px, calc((100vw - 1280px) / 2 + 24px))',
+          }}
+          className="hidden md:block"
         >
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          <h1
+            style={{
+              fontFamily: 'var(--font-figtree), sans-serif',
+              fontWeight: 700,
+              fontSize: 68,
+              lineHeight: '80px',
+              color: 'rgb(35,35,35)',
+              margin: '0 0 20px',
+            }}
+          >
+            We develop and design digital products
+          </h1>
 
-          {/* Left */}
-          <div>
-            {/* Google badge */}
-            <div
-              className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-6 border"
-              style={{
-                backgroundColor: '#fff',
-                borderColor: 'rgba(0,0,0,0.1)',
-                color: '#555',
-              }}
-            >
-              <span className="text-yellow-400">★★★★★</span>
-              <span>5,0 Google reviews</span>
+          <p
+            style={{
+              fontFamily: 'var(--font-figtree), sans-serif',
+              fontWeight: 400,
+              fontSize: 20,
+              lineHeight: '29px',
+              color: 'rgb(35,35,35)',
+              margin: '0 0 32px',
+              maxWidth: 480,
+            }}
+          >
+            Full-service digital agency working at the intersection of people and digital
+            technologies.
+          </p>
+
+          <Link
+            href="#contact"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              padding: '14px 28px',
+              borderRadius: 9999,
+              backgroundColor: '#fb6962',
+              color: '#fff',
+              fontFamily: 'var(--font-figtree), sans-serif',
+              fontWeight: 700,
+              fontSize: 15,
+              textDecoration: 'none',
+              transition: 'opacity 0.2s',
+            }}
+          >
+            Get a quote ✨
+          </Link>
+
+          {/* Google review badge — plain, no pill wrapper */}
+          <div style={{ marginTop: 16 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 40 40" fill="none"><g clipPath="url(#clip0_2296_6298)"><path d="M39.611 16.083H38V16H20V24H31.303C29.654 28.657 25.223 32 20 32C13.373 32 8 26.627 8 20C8 13.373 13.373 8 20 8C23.059 8 25.842 9.154 27.961 11.039L33.618 5.382C30.046 2.053 25.268 0 20 0C8.955 0 0 8.955 0 20C0 31.045 8.955 40 20 40C31.045 40 40 31.045 40 20C40 18.659 39.862 17.35 39.611 16.083Z" fill="#161616"></path></g><defs><clipPath id="clip0_2296_6298"><rect width="40" height="40" fill="white"></rect></clipPath></defs></svg>
+              <span
+                style={{
+                  fontFamily: 'var(--font-figtree), sans-serif',
+                  fontWeight: 400,
+                  fontSize: 14,
+                  color: 'rgb(35,35,35)',
+                }}
+              >
+                5,0 Google reviews
+              </span>
             </div>
+            <div style={{ color: '#FFA500', fontSize: 16, marginTop: 4, letterSpacing: 2 }}>★★★★★</div>
+          </div>
+        </div>
 
+        {/* Mobile left content */}
+        <div className="md:hidden" style={{ position: 'relative', zIndex: 10, width: '100%', paddingTop: 96, paddingBottom: 32 }}>
+          <div style={{ padding: '0 24px', textAlign: 'center', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <h1
-              className="text-5xl sm:text-6xl font-extrabold leading-[1.08] tracking-tight mb-5"
-              style={{ fontFamily: 'var(--font-bricolage)', color: '#161616' }}
+              style={{
+                fontWeight: 700,
+                fontSize: 40,
+                lineHeight: '48px',
+                color: 'rgb(35,35,35)',
+                margin: '0 0 16px',
+              }}
             >
               We develop and design digital products
             </h1>
 
-            <p className="text-lg leading-relaxed mb-8" style={{ color: '#666', maxWidth: 480 }}>
+            <p
+              style={{
+                fontWeight: 400,
+                fontSize: 18,
+                lineHeight: '27px',
+                color: 'rgb(35,35,35)',
+                margin: '0 0 24px',
+              }}
+            >
               Full-service digital agency working at the intersection of people and digital
               technologies.
             </p>
 
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="#contact"
-                className="inline-flex items-center px-6 py-3 rounded-full text-sm font-bold text-white hover:opacity-90 transition-opacity"
-                style={{ backgroundColor: '#fb6962' }}
-              >
-                Get a quote ✨
-              </Link>
-              <Link
-                href="#cases"
-                className="inline-flex items-center px-6 py-3 rounded-full text-sm font-bold border-2 border-black/70 hover:bg-black hover:text-white transition-colors"
-                style={{ color: '#161616' }}
-              >
-                See our work →
-              </Link>
+            <Link
+              href="#contact"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '12px 24px',
+                borderRadius: 9999,
+                backgroundColor: '#fb6962',
+                color: '#fff',
+                fontWeight: 700,
+                fontSize: 14,
+                textDecoration: 'none',
+              }}
+            >
+              Get a quote ✨
+            </Link>
+
+            {/* Google review badge — mobile */}
+            <div style={{ marginTop: 16, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 40 40" fill="none"><g clipPath="url(#clip0_mob)"><path d="M39.611 16.083H38V16H20V24H31.303C29.654 28.657 25.223 32 20 32C13.373 32 8 26.627 8 20C8 13.373 13.373 8 20 8C23.059 8 25.842 9.154 27.961 11.039L33.618 5.382C30.046 2.053 25.268 0 20 0C8.955 0 0 8.955 0 20C0 31.045 8.955 40 20 40C31.045 40 40 31.045 40 20C40 18.659 39.862 17.35 39.611 16.083Z" fill="#161616"></path></g><defs><clipPath id="clip0_mob"><rect width="40" height="40" fill="white"></rect></clipPath></defs></svg>
+                <span style={{ fontWeight: 400, fontSize: 13, color: 'rgb(35,35,35)' }}>
+                  5,0 Google reviews
+                </span>
+              </div>
+              <div style={{ color: '#FFA500', fontSize: 14, marginTop: 4, letterSpacing: 2 }}>★★★★★</div>
             </div>
           </div>
 
-          {/* Right — 2-column staggered mosaic of 6 tiles */}
-          <div className="hidden lg:flex gap-3 h-[500px] overflow-hidden">
-            {/* Left sub-column */}
-            <div className="flex flex-col gap-3 flex-1">
-              {[0, 1, 2].map((idx) => {
-                const c = heroTiles[idx]
-                const img = c ? mediaUrl(c.featuredImage) : null
+          {/* Mobile marquee image rows */}
+          <div style={{ marginTop: 24, width: '100vw', marginLeft: -24, overflow: 'hidden', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            {/* Row 1 — slides left */}
+            <div className="marquee-left" style={{ display: 'flex', gap: 16, width: 'max-content' }}>
+              {[...cases.filter((c) => c.featuredImage && typeof c.featuredImage === 'object'), ...cases.filter((c) => c.featuredImage && typeof c.featuredImage === 'object')].map((c, i) => {
+                const img = mediaUrl(c.featuredImage)!
                 return (
                   <div
-                    key={idx}
-                    className="relative rounded-2xl overflow-hidden shadow-sm flex-1"
-                    style={{ backgroundColor: '#d4d1ce' }}
+                    key={`ml-${c.id}-${i}`}
+                    style={{
+                      position: 'relative',
+                      width: 160,
+                      height: 110,
+                      flexShrink: 0,
+                      borderRadius: 16,
+                      overflow: 'hidden',
+                    }}
                   >
-                    {img ? (
-                      <Image
-                        src={img}
-                        alt={c ? (mediaAlt(c.featuredImage) || c.title) : ''}
-                        fill
-                        className="object-cover"
-                        sizes="20vw"
-                      />
-                    ) : (
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${TILE_GRADIENTS[idx]!} opacity-60`}
-                      />
-                    )}
+                    <Image
+                      src={img}
+                      alt={mediaAlt(c.featuredImage) || c.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="160px"
+                    />
                   </div>
                 )
               })}
             </div>
-
-            {/* Right sub-column — offset down for stagger */}
-            <div className="flex flex-col gap-3 flex-1 mt-10">
-              {[3, 4, 5].map((idx) => {
-                const c = heroTiles[idx]
-                const img = c ? mediaUrl(c.featuredImage) : null
+            {/* Row 2 — slides right */}
+            <div className="marquee-right" style={{ display: 'flex', gap: 16, width: 'max-content' }}>
+              {[...cases.filter((c) => c.featuredImage && typeof c.featuredImage === 'object'), ...cases.filter((c) => c.featuredImage && typeof c.featuredImage === 'object')].map((c, i) => {
+                const img = mediaUrl(c.featuredImage)!
                 return (
                   <div
-                    key={idx}
-                    className="relative rounded-2xl overflow-hidden shadow-sm flex-1"
-                    style={{ backgroundColor: '#d4d1ce' }}
+                    key={`mr-${c.id}-${i}`}
+                    style={{
+                      position: 'relative',
+                      width: 160,
+                      height: 110,
+                      flexShrink: 0,
+                      borderRadius: 16,
+                      overflow: 'hidden',
+                    }}
                   >
-                    {img ? (
-                      <Image
-                        src={img}
-                        alt={c ? (mediaAlt(c.featuredImage) || c.title) : ''}
-                        fill
-                        className="object-cover"
-                        sizes="20vw"
-                      />
-                    ) : (
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${TILE_GRADIENTS[idx]!} opacity-60`}
-                      />
-                    )}
+                    <Image
+                      src={img}
+                      alt={mediaAlt(c.featuredImage) || c.title}
+                      fill
+                      style={{ objectFit: 'cover' }}
+                      sizes="160px"
+                    />
                   </div>
                 )
               })}
             </div>
           </div>
         </div>
+
+        {/* Right — 3 column scrolling mosaic, absolute to right edge, full height */}
+        <div
+          className="hidden md:flex"
+          style={{
+            position: 'absolute',
+            right: 0,
+            top: 0,
+            height: '100%',
+            width: '40vw',
+            overflow: 'hidden',
+            gap: 20,
+          }}
+        >
+          {[0, 1, 2].map((colIdx) => {
+            const colClasses = ['col-up-1', 'col-down-2', 'col-up-3']
+            const colImages = cases
+              .filter((c) => c.featuredImage && typeof c.featuredImage === 'object')
+              .filter((_, i) => i % 3 === colIdx)
+            const doubled = [...colImages, ...colImages]
+            return (
+              <div
+                key={colIdx}
+                className={colClasses[colIdx]}
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 20,
+                }}
+              >
+                {doubled.map((c, i) => {
+                  const img = mediaUrl(c.featuredImage)!
+                  return (
+                    <div
+                      key={`${c.id}-${i}`}
+                      className="mosaic-img-wrapper"
+                      style={{
+                        position: 'relative',
+                        height: 250,
+                        width: '100%',
+                        borderRadius: 16,
+                        flexShrink: 0,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Image
+                        src={img}
+                        alt={mediaAlt(c.featuredImage) || c.title}
+                        fill
+                        style={{ objectFit: 'cover' }}
+                        sizes="15vw"
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          })}
         </div>
+
+        {/* Hero bottom fade to #F1F0EE */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 120,
+          background: 'linear-gradient(to bottom, transparent, #F1F0EE)',
+          pointerEvents: 'none',
+          zIndex: 10,
+        }} />
       </section>
 
       {/* ── Client logos ──────────────────────────────────────────────────── */}
-      <section style={{ backgroundColor: '#161616', padding: '32px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
-          <p
-            className="text-center text-xs font-semibold uppercase tracking-widest mb-6"
-            style={{ color: '#444' }}
-          >
-            Trusted by leading companies
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-3">
-            {CLIENTS.map((name) => (
-              <span
-                key={name}
-                className="px-4 py-1.5 rounded-full text-sm font-semibold border"
+      {(() => {
+        const LOGOS = [
+          '/media/lp-logo-01.svg',
+          '/media/lp-logo-11.svg',
+          '/media/lp-logo-09.svg',
+          '/media/lp-logo-08.svg',
+          '/media/lp-logo-07.svg',
+          '/media/lp-logo-06.svg',
+          '/media/lp-logo-04-1.svg',
+          '/media/lp-logo-03.svg',
+          '/media/lp-logo-02.svg',
+          '/media/lp-logo-10.svg',
+          '/media/lp-logo-avia.svg',
+        ]
+        return (
+          <section style={{ backgroundColor: '#F1F0EE', overflow: 'hidden', position: 'relative' }} className="lg:py-20 py-10">
+            {/* full-width fade mask wrapper */}
+            <div className="logo-marquee-wrapper">
+              {/* inner max-width constrains nothing — track is max-content, mask is on wrapper */}
+              <div
+                className="logo-marquee-track"
+                style={{ display: 'flex', gap: 80, width: 'max-content' }}
+              >
+                {[...LOGOS, ...LOGOS].map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt=""
+                    className="logo-marquee-item"
+                    style={{ height: 48, width: 'auto', flexShrink: 0 }}
+                  />
+                ))}
+              </div>
+            </div>
+          </section>
+        )
+      })()}
+
+      {/* ── About / Scandinavian design ───────────────────────────────────── */}
+      <section id="about" style={{ backgroundColor: '#F1F0EE', padding: '96px 0' }}>
+        <div className="max-w-[1280px] mx-auto px-6">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+            {/* Left */}
+            <div>
+              <h2 style={{
+                fontFamily: 'var(--font-figtree), sans-serif',
+                fontWeight: 600,
+                fontSize: 48,
+                lineHeight: '56px',
+                color: 'rgb(35,35,35)',
+                margin: 0,
+              }}>
+                Scandinavian design.<br />Global results.
+              </h2>
+
+              <p style={{
+                fontFamily: 'var(--font-figtree), sans-serif',
+                fontWeight: 400,
+                fontSize: 18,
+                lineHeight: '28px',
+                color: 'rgb(35,35,35)',
+                marginTop: 24,
+                maxWidth: 500,
+              }}>
+                We&apos;re an interdisciplinary team that loves ambitious goals and new challenges. At GetOnNet you&apos;ll find problem solvers, wordsmiths, illustrators, experience architects and code breakers. Our expertise lies in digital products, AI, web, app and digital marketing.
+              </p>
+
+              {/* Checklist */}
+              <div style={{ marginTop: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                {[
+                  'Multidisciplinary expertise',
+                  '15+ years of experience',
+                  '500+ projects',
+                ].map((item) => (
+                  <div key={item} style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '10px 16px',
+                    borderRadius: 100,
+                    backgroundImage: 'linear-gradient(90deg, #E3E0DD 0%, #E3E0DD00 100%)',
+                  }}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" style={{ flexShrink: 0 }}><g clipPath="url(#clip0_83_11)"><path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#161616"></path><path d="M18 8L9.75 16.25L6 12.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path></g><defs><clipPath id="clip0_83_11"><rect width="24" height="24" fill="white"></rect></clipPath></defs></svg>
+                    <span style={{
+                      fontFamily: 'var(--font-figtree), sans-serif',
+                      fontWeight: 600,
+                      fontSize: 18,
+                      lineHeight: '28px',
+                      color: 'rgb(35,35,35)',
+                    }}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
+              <Link
+                href="#contact"
                 style={{
-                  color: '#999',
-                  borderColor: 'rgba(255,255,255,0.1)',
-                  backgroundColor: 'rgba(255,255,255,0.04)',
-                  letterSpacing: '0.01em',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '16px 32px',
+                  borderRadius: 9999,
+                  backgroundColor: '#fb6962',
+                  color: '#fff',
+                  fontFamily: 'var(--font-figtree), sans-serif',
+                  fontWeight: 700,
+                  fontSize: 18,
+                  textDecoration: 'none',
+                  marginTop: 32,
+                  transition: 'opacity 0.2s',
                 }}
               >
-                {name}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Scandinavian design / Global results ──────────────────────────── */}
-      <section id="about" style={{ maxWidth: 1200, margin: '0 auto', padding: '96px 24px' }}>
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-
-          {/* Left */}
-          <div>
-            <p
-              className="text-xs font-semibold uppercase tracking-widest mb-4"
-              style={{ color: '#999' }}
-            >
-              About us
-            </p>
-            <h2
-              className="text-4xl sm:text-5xl font-extrabold leading-tight mb-6"
-              style={{ fontFamily: 'var(--font-bricolage)', color: '#161616' }}
-            >
-              Scandinavian design.{' '}
-              <span style={{ color: '#888' }}>Global results.</span>
-            </h2>
-            <p className="text-base leading-relaxed mb-3" style={{ color: '#666' }}>
-              We&apos;re an interdisciplinary team of problem solvers, wordsmiths, illustrators,
-              experience architects and code breakers.
-            </p>
-            <p className="text-base leading-relaxed mb-8" style={{ color: '#666' }}>
-              With expertise in digital products, AI, web, app and digital marketing — we build
-              things that actually work.
-            </p>
-
-            {/* Stats */}
-            <div className="flex gap-8 mb-10">
-              {[
-                { v: '15+', l: 'Years experience' },
-                { v: '500+', l: 'Projects delivered' },
-                { v: '5,0', l: 'Google rating' },
-              ].map((s) => (
-                <div key={s.l}>
-                  <p
-                    className="text-4xl font-extrabold leading-none mb-1"
-                    style={{ fontFamily: 'var(--font-bricolage)', color: '#161616' }}
-                  >
-                    {s.v}
-                  </p>
-                  <p className="text-sm" style={{ color: '#888' }}>{s.l}</p>
-                </div>
-              ))}
+                Let&apos;s talk ☕
+              </Link>
             </div>
 
-            <Link
-              href="#about"
-              className="inline-flex items-center px-6 py-3 rounded-full text-sm font-bold text-white transition-opacity hover:opacity-85"
-              style={{ backgroundColor: '#fb6962' }}
-            >
-              Read more about us →
-            </Link>
-          </div>
+            {/* Right — image + phone mockup + 3 pill marquee rows */}
+            {(() => {
+              const pillStyle: React.CSSProperties = {
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '8px 18px',
+                margin: '10px',
+                borderRadius: 100,
+                backgroundColor: '#f4f4f480',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                fontFamily: 'var(--font-figtree), sans-serif',
+                fontWeight: 400,
+                fontSize: 14,
+                color: 'rgb(35,35,35)',
+                width: 180,
+                flexShrink: 0,
+                flexGrow: 0,
+                textAlign: 'center',
+                boxSizing: 'border-box',
+                whiteSpace: 'nowrap' as const,
+              }
+              const rows = [
+                { pills: ['Screen-adapted','On brand','SSL included','User funnels','Performance'], cls: 'marquee-left-18', top: '37%' },
+                { pills: ['Integration','SEO optimization','Customization','Conversion','No hidden fees'], cls: 'marquee-left-25', top: '50%' },
+                { pills: ['Mutual trust','UI/UX','Mobile first','Fast delivery','Transparent'], cls: 'marquee-left-20', top: '63%' },
+              ]
+              return (
+                <div style={{ position: 'relative', borderRadius: 24, overflow: 'hidden', aspectRatio: '1/1' }}>
+                  {/* Background image */}
+                  <Image
+                    src="/media/bg-lp-00001.jpg"
+                    alt=""
+                    fill
+                    style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
 
-          {/* Right — organic blob composition */}
-          <div className="relative h-72 lg:h-[420px] flex items-center justify-center">
-            {/* Base blob */}
-            <div
-              className="absolute w-56 h-56 lg:w-72 lg:h-72"
-              style={{
-                background: 'linear-gradient(135deg, #fb6962 0%, #ff9a3c 100%)',
-                borderRadius: '60% 40% 70% 30% / 50% 60% 40% 50%',
-                opacity: 0.9,
-              }}
-            />
-            {/* Secondary blob */}
-            <div
-              className="absolute w-40 h-40 lg:w-52 lg:h-52"
-              style={{
-                background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
-                borderRadius: '40% 60% 30% 70% / 60% 40% 50% 50%',
-                opacity: 0.75,
-                transform: 'translate(60px, -40px)',
-              }}
-            />
-            {/* Third blob */}
-            <div
-              className="absolute w-32 h-32 lg:w-44 lg:h-44"
-              style={{
-                background: 'linear-gradient(135deg, #34d399 0%, #06b6d4 100%)',
-                borderRadius: '50% 50% 30% 70% / 50% 30% 70% 50%',
-                opacity: 0.7,
-                transform: 'translate(-50px, 50px)',
-              }}
-            />
-            {/* Small accent */}
-            <div
-              className="absolute w-20 h-20 lg:w-28 lg:h-28"
-              style={{
-                background: '#fcb900',
-                borderRadius: '70% 30% 50% 50% / 30% 70% 30% 70%',
-                opacity: 0.8,
-                transform: 'translate(80px, 60px)',
-              }}
-            />
+                  {/* 3 pill marquee rows */}
+                  {rows.map(({ pills, cls, top }) => (
+                    <div key={top} style={{ position: 'absolute', top, left: 0, right: 0, zIndex: 5, overflow: 'hidden', transform: 'translateY(-50%)' }}>
+                      <div className={cls} style={{ display: 'flex', gap: 20, width: 'max-content' }}>
+                        {[...pills, ...pills].map((label, i) => (
+                          <span key={i} style={pillStyle}>{label}</span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Phone mockup — centered, above marquees */}
+                  <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 10 }}>
+                    <div style={{ position: 'relative', width: '55%', aspectRatio: '1/1' }}>
+                      <Image
+                        src="/media/iPhone-13-Pro-Mockup-Vol-03-2048x2048-1.webp"
+                        alt="Phone mockup"
+                        fill
+                        style={{ objectFit: 'contain' }}
+                        sizes="30vw"
+                      />
+                    </div>
+                  </div>
+                </div>
+              )
+            })()}
+
           </div>
         </div>
       </section>
 
       {/* ── Services ──────────────────────────────────────────────────────── */}
       <section id="services" style={{ backgroundColor: '#0d0d0d', padding: '96px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+        <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-12">
             <p
               className="text-xs font-semibold uppercase tracking-widest mb-4"
@@ -410,7 +639,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Cases grid ────────────────────────────────────────────────────── */}
-      <section id="cases" style={{ maxWidth: 1200, margin: '0 auto', padding: '96px 24px' }}>
+      <section id="cases" className="max-w-[1280px] mx-auto px-6" style={{ padding: '96px 0' }}>
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-5 mb-12">
           <div>
             <p
@@ -529,7 +758,7 @@ export default async function HomePage() {
 
       {/* ── Testimonials ──────────────────────────────────────────────────── */}
       <section style={{ backgroundColor: '#fff', padding: '96px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+        <div className="max-w-[1280px] mx-auto px-6">
           <div className="mb-12">
             <p
               className="text-xs font-semibold uppercase tracking-widest mb-3"
@@ -632,7 +861,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── Tech stack ────────────────────────────────────────────────────── */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '96px 24px' }}>
+      <section className="max-w-[1280px] mx-auto px-6" style={{ padding: '96px 0' }}>
         <div className="mb-12">
           <p
             className="text-xs font-semibold uppercase tracking-widest mb-3"
@@ -670,7 +899,7 @@ export default async function HomePage() {
 
       {/* ── CTA / Contact ─────────────────────────────────────────────────── */}
       <section id="contact" style={{ backgroundColor: '#161616', padding: '96px 0' }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', padding: '0 24px' }}>
+        <div className="max-w-[720px] mx-auto px-6">
           <div className="text-center mb-12">
             <p
               className="text-xs font-semibold uppercase tracking-widest mb-4"
