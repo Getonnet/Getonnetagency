@@ -23,7 +23,8 @@
       "Bash(NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" node_modules/.bin/tsx -e \":*)",
       "Bash(grep -v \"^\\\\s*$\")",
       "Bash(git add:*)",
-      "Bash(ls \"C:\\\\Users\\\\geton\\\\Getonnetagency\\\\src\\\\app\\\\\\(frontend\\)\\\\components\")"
+      "Bash(ls \"C:\\\\Users\\\\geton\\\\Getonnetagency\\\\src\\\\app\\\\\\(frontend\\)\\\\components\")",
+      "Bash(npx tsc:*)"
     ]
   }
 }

@@ -215,6 +215,76 @@ img {
   color: #ffffff;
 }
 
+/* ── Scrollbar hide utility ──────────────────────────────────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Logo marquee ────────────────────────────────────────────────────────── */
+.logo-marquee-wrapper {
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  overflow: hidden;
+}
+.logo-marquee-wrapper:hover .logo-marquee-track {
+  animation-play-state: paused;
+}
+.logo-marquee-track {
+  animation: marqueeLeft 60s linear infinite;
+  will-change: transform;
+}
+.logo-marquee-item {
+  opacity: 0.7;
+  filter: grayscale(100%);
+  transition: all 0.3s ease;
+}
+.logo-marquee-item:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: scale(1.15);
+}
+
+/* ── Mobile marquee rows ─────────────────────────────────────────────────── */
+@keyframes marqueeLeft {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+@keyframes marqueeRight {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+.marquee-left {
+  animation: marqueeLeft 20s linear infinite;
+  will-change: transform;
+}
+.marquee-right {
+  animation: marqueeRight 25s linear infinite;
+  will-change: transform;
+}
+.marquee-left-18 {
+  animation: marqueeLeft 18s linear infinite;
+  will-change: transform;
+}
+.marquee-left-25 {
+  animation: marqueeLeft 25s linear infinite;
+  will-change: transform;
+}
+.marquee-left-20 {
+  animation: marqueeLeft 20s linear infinite;
+  will-change: transform;
+}
+
+/* ── Hero scrolling mosaic ───────────────────────────────────────────────── */
+.mosaic-img-wrapper {
+  overflow: hidden;
+  border-radius: 1rem;
+}
+.mosaic-img-wrapper img {
+  transition: transform 0.4s ease;
+}
+.mosaic-img-wrapper:hover img {
+  transform: scale(1.05);
+}
+
 /* Horizontal scroll snap for service cards on mobile */
 .services-track {
   display: flex;
